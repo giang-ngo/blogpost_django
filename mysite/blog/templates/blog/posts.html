@@ -1,0 +1,83 @@
+{% extends 'main.html' %}
+
+{% load static %}
+{% block title %}BlogPost {% endblock %}
+
+{% block content %}
+
+
+<main class="projects">
+    <section class="hero-section text-center">
+        <div class="container container--narrow">
+            <div class="hero-section__box">
+                <h2>Search for <span>Posts</span></h2>
+            </div>
+
+            <div class="hero-section__search">
+                <form class="form" action="{% url 'posts' %}" method="GET">
+                    {% csrf_token %}
+                    <div class="form__field">
+                        <label for="formInput#search">Search By Projects </label>
+                        <input class="input input--text" id="formInput#search" type="search" name="q"
+                            placeholder="Search by Project Title" />
+                    </div>
+
+                    <input class="btn btn--sub btn--lg" type="submit" value="Search" />
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Search Result: BlogList -->
+    <section class="projectsList">
+        <div class="container">
+            <div class="grid grid--three">
+                {% for post in page.object_list %}
+                {% if post.approved %}
+                <div class="column">
+                    <div class="card project">
+                        <a href="{% url 'post_detail' post.id %}" class="project">
+
+                            {% if post.imageURL %}
+                            <img class="project__thumbnail" src="{{post.imageURL }}" alt="project thumbnail" />
+                            {% else %}
+                            <img class="project__thumbnail" src="{% static 'images/blog/default.jpg' %}"
+                                alt="project thumbnail" />
+                            {% endif %}
+
+                            <div class="card__body">
+                                <h3 class="project__title">{{post.title}}</h3>
+                                <p><a class="project__author" href="{% url 'user_profile' post.author.id %}">By
+                                        {{post.author.username}}</a></p>
+                                <p>{{post.description|slice:":100"}}...</p>
+                                <p class="project--rating">
+                                    <span style="font-weight: bold;">Updated on {{post.created}}</span>
+                                    {% if request.user == post.author %}
+                                <p style="margin-bottom: 10px;"><a href="{% url 'post_update' post.id %}">Edit</a> <a
+                                        href="{% url 'post_delete' post.id %}">Delete</a></p>
+
+                                </p>
+
+                                {% endif %}
+
+
+                                <div class="project__tags">
+                                    <span class="tag tag--pill tag--main">
+                                        <small>{{post.topic|title}}</small>
+                                    </span>
+
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+
+            </div>
+        </div>
+    </section>
+
+    {% include 'pagination.html' %}
+</main>
+
+{% endblock %}

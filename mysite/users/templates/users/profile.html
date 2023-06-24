@@ -1,0 +1,204 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block title %} {{user.username|title}}'s Profile {% endblock %}
+{% block content %}
+<main class="profile my-md">
+    <div class="container">
+        <div class="layout">
+            <div class="column column--1of3">
+                <div class="card text-center">
+                    <div class="card__body dev">
+                        <img class="avatar avatar--xl" src="{{user.avatar.url}}" />
+                        <h2 class="dev__name">{{user.username}}</h2>
+                        <p class="dev__title">Name: {{user.name.title}}</p>
+                        {% if request.user.username == user.username %}
+                        <p class="dev__location">email: {{user.email}}</p>
+                        <ul class="dev__social">
+                            {% if user.social_facebook %}
+                            <li style="list-style: none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="fill: #385898;" width="20px"
+                                    height="20px" viewBox="0 0 512 512">
+                                    <path
+                                        d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z" />
+                                </svg>
+                                <a style="color: #385898;
+                  font-size: 1.8rem;text-decoration: none;" title="Personal Website" href="{{user.social_facebook}}"
+                                    target="_blank">Facebook</a>
+                            </li>
+                            {% endif %}
+
+                            {% if user.social_linkedin %}
+                            <li style="list-style: none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="fill: #0073b1;;" width="20px"
+                                    height="20px" viewBox="0 0 448 512">
+                                    <path
+                                        d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z" />
+                                </svg>
+                                <a style="color: #0073b1;;
+                  font-size: 1.8rem;text-decoration: none;" title="Personal Website" href="{{user.social_linkedin}}"
+                                    target="_blank">Linkedin</a>
+                            </li>
+                            {% endif %}
+
+                            {% if user.social_twitter %}
+                            <li style="list-style: none;">
+                                <svg xmlns="http://www.w3.org/2000/svg" style="fill: rgb(29, 155, 240)" width="20px"
+                                    height="20px" viewBox="0 0 448 512">
+                                    <path
+                                        d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48zm-48.9 158.8c.2 2.8.2 5.7.2 8.5 0 86.7-66 186.6-186.6 186.6-37.2 0-71.7-10.8-100.7-29.4 5.3.6 10.4.8 15.8.8 30.7 0 58.9-10.4 81.4-28-28.8-.6-53-19.5-61.3-45.5 10.1 1.5 19.2 1.5 29.6-1.2-30-6.1-52.5-32.5-52.5-64.4v-.8c8.7 4.9 18.9 7.9 29.6 8.3a65.447 65.447 0 0 1-29.2-54.6c0-12.2 3.2-23.4 8.9-33.1 32.3 39.8 80.8 65.8 135.2 68.6-9.3-44.5 24-80.6 64-80.6 18.9 0 35.9 7.9 47.9 20.7 14.8-2.8 29-8.3 41.6-15.8-4.9 15.2-15.2 28-28.8 36.1 13.2-1.4 26-5.1 37.8-10.2-8.9 13.1-20.1 24.7-32.9 34z" />
+                                </svg>
+                                <a style="color: rgb(29, 155, 240);
+                  font-size: 1.8rem;text-decoration: none;" title="Personal Website" href="{{user.social_twitter}}"
+                                    target="_blank">Twitter</a>
+                            </li>
+
+                            {% endif %}
+                            <li style="list-style: none;">
+                                <svg style="fill: var(--color-main);" width="20px" height="20px"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                    <path
+                                        d="M144 144c0-44.2 35.8-80 80-80c31.9 0 59.4 18.6 72.3 45.7c7.6 16 26.7 22.8 42.6 15.2s22.8-26.7 15.2-42.6C331 33.7 281.5 0 224 0C144.5 0 80 64.5 80 144v48H64c-35.3 0-64 28.7-64 64V448c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V256c0-35.3-28.7-64-64-64H144V144z" />
+                                </svg>
+                                <a style="color: var(--color-main);
+                  font-size: 1.8rem;text-decoration: none;" title="Personal Website" href="{% url 'password_change' %}"
+                                    target="_blank">Change
+                                    Password</a>
+                            </li>
+                        </ul>
+
+                        <a href="{% url 'update_user' %}" class="btn btn--sub btn--lg">Edit Profile</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="column column--2of3">
+                <div class="devInfo">
+                    {% if user.bio %}
+                    <h3 style="color:var(--color-sub)" class="devInfo__title">About Me</h3>
+                    <p class="devInfo__about">
+                        {{user.bio|linebreaksbr}}
+                    </p>
+                    {% endif %}
+                </div>
+                <div class="devInfo">
+                    {% if messages_post %}
+                    <h3 class="devInfo__title">Recent Activity</h3>
+                    <div class="devInfo__skills">
+                        {% for message in messages_post %}
+                        <div class="comment">
+
+                            <div class="thread">
+                                <div class="thread__top">
+                                    <div class="thread__author">
+
+                                        <a href="{% url 'user_profile' message.user.id %}">
+                                            <img class="avatar avatar--md" src="{{message.user.avatar.url}}"
+                                                alt="user" />
+                                        </a>
+                                        <a href="{% url 'user_profile' message.user.id %}"
+                                            class="comment__author">@{{message.user.username}}</a>
+                                        <a href="{% url 'post_detail' message.post.id %}">{{message.post.title|slice:":100"}}</a>
+
+                                        <span class="thread__date">{{message.created|timesince}} ago </span>
+
+
+                                        {% if request.user == message.user %}
+                                        <div class="thread__delete">
+                                            <a href="{% url 'message_delete' message.id %}"><svg version="1.1"
+                                                    xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                                                    viewBox="0 0 32 32">
+                                                    <title>remove</title>
+                                                    <path
+                                                        d="M27.314 6.019l-1.333-1.333-9.98 9.981-9.981-9.981-1.333 1.333 9.981 9.981-9.981 9.98 1.333 1.333 9.981-9.98 9.98 9.98 1.333-1.333-9.98-9.98 9.98-9.981z">
+                                                    </path>
+                                                </svg></a>
+                                        </div>
+                                        {% endif %}
+
+
+                                    </div>
+
+                                </div>
+                                <div class="thread__details">
+                                    {{message.body}}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+
+
+                        <h3 class="devInfo__subtitle">Topics</h3>
+                        <div class="devInfo__otherSkills">
+                            {% for post in posts %}
+                            <span class="tag tag--pill tag--sub tag--lg">
+                                <small>{{post.topic|title}}</small>
+                            </span>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="devInfo">
+                    <div style="margin-bottom: 20px;">
+                        {% if request.user.username == user.username %}
+                        <h3 style="color:var(--color-sub)" class="devInfo__title">My Post{{posts.count|pluralize:'s'}}
+                        </h3>
+                        <p>I have {{posts.count}} post{{posts.count|pluralize:'s'}}.</p>
+                        {% else %}
+                        <h3 style="color:var(--color-sub)" class="devInfo__title">{{user.name.title}} has
+                            {{posts.count}}
+                            Post{{posts.count|pluralize:'s'}}</h3>
+
+
+                        {% endif %}
+                    </div>
+
+                    <div class="grid grid--two">
+                        {% for post in posts %}
+                        <div class="column">
+                            <div class="card project">
+                                <a href="{% url 'post_detail' post.id %}" class="project">
+                                    {% if post.imageURL %}
+                                    <img class="project__thumbnail" src="{{post.imageURL}}" alt="project thumbnail" />
+                                    {% else %}
+                                    <img class="project__thumbnail" src="{% static 'images/blog/default.jpg' %}"
+                                        alt="project thumbnail" />
+
+                                    {% endif %}
+                                    <div class="card__body">
+                                        <h3 class="project__title">{{post.title}}</h3>
+                                        <p><a class="project__author" href="">{{post.author.username}}</a></p>
+                                        <p>{{post.description|slice:":100"}}...</p>
+                                        <p class="project--rating">
+                                            <span style="font-weight: bold;">Updated on {{post.created}}</span>
+                                            {% if request.user == post.author %}
+                                        <p style="margin-bottom: 10px;"><a
+                                                href="{% url 'post_update' post.id %}">Edit</a> <a
+                                                href="{% url 'post_delete' post.id %}">Delete</a></p>
+
+                                        </p>
+                                        {% endif %}
+                                        <div class="project__tags">
+
+                                            <span class="tag tag--pill tag--main">
+                                                <small>{{post.topic}}</small>
+                                            </span>
+
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
+

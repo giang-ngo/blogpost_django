@@ -1,0 +1,36 @@
+<div class="pagination">
+        <ul class="container">
+                {% if page.has_previous %}
+                <li><a href="{% url 'posts' %}?page={{page.previous_page_number}}" class="btn btn--disabled">&#10094;
+                                Prev</a></li>
+                {% endif %}
+
+                {% if page.number|add:'-2' > 1 %}
+                <li><a href="{% url 'posts' %}?page=1" class="btn">1</a></li>
+                <li><a href="{% url 'posts' %}?page={{page.number|add:'-2'}}" class="btn">...</a></li>
+                {% endif %}
+
+
+                {% for num_page in page.paginator.page_range %}
+
+                {% if page.number == num_page %}
+                <li><a href="{% url 'posts' %}?page={{num_page}}" class="btn btn--sub">{{num_page}}</a></li>
+                {% elif num_page > page.number|add:'-2' and num_page < page.number|add:'2' %} <li><a
+                                href="{% url 'posts' %}?page={{num_page}}" class="btn">{{num_page}}</a></li>
+
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if page.paginator.num_pages > page.number|add:'2' %}
+                        <li><a href="{% url 'posts' %}?page={{page.number|add:'2'}}" class="btn">...</a></li>
+                        <li><a href="{% url 'posts' %}?page={{page.paginator.num_pages}}"
+                                        class="btn">{{page.paginator.num_pages}}</a></li>
+                        {% endif %}
+
+                        {% if page.has_next %}
+                        <li><a href="{% url 'posts' %}?page={{page.next_page_number}}" class="btn btn--disabled">Next
+                                        &#10095;</a>
+                        </li>
+                        {% endif %}
+        </ul>
+</div>

@@ -1,0 +1,34 @@
+{% load static %}
+
+<header class="header">
+  <div class="container container--narrow">
+    <a href="{% url 'posts' %}" class="header__logo">
+      <img src="{% static 'images/logo.svg' %}" alt="Blogpost logo" />
+    </a>
+    <nav class="header__nav">
+      <input type="checkbox" id="responsive-menu" />
+      <label for="responsive-menu" class="toggle-menu">
+        <span>Menu</span>
+        <div class="toggle-menu__lines"></div>
+      </label>
+      <ul class="header__menu" style="margin-left: auto;
+        position: relative;">
+        {% if request.user.is_superuser %}
+        <li class="header__menuItem"><a href="{% url 'admin_approval' %}">Admin</a></li>
+        {% endif %}
+
+
+        {% if request.user.is_authenticated %}
+        <li class="header__menuItem"><a href="{% url 'user_profile' request.user.id %}">My Profile</a></li>
+        <li class="header__menuItem"><a href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+        <li class="header__menuItem"><a href="{% url 'login' %}">Login</a></li>
+        {% endif %}
+        <li class="header__menuItem"><a href="{% url 'post_create' %}" class="btn btn--sub">Create Blog</a></li>
+
+      </ul>
+
+    </nav>
+
+  </div>
+</header>
